@@ -88,7 +88,7 @@ public class Payment implements Comparable<Payment>{
                     if(!meowsPQ.isEmpty()){
                         Tepoch = epoch;
                         diff = Tepoch - Fepoch;
-                        time = diff - elapsed;
+                        time = 1000L - diff - elapsed;
                     }else{
                         Fepoch = (long) (Math.round(epoch/1000d)*1000d);
                     }
