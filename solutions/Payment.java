@@ -85,7 +85,7 @@ public class Payment implements Comparable<Payment>{
                     Payment transactionObj = new Payment(time, txnId, rank);
                     meowsPQ.add(transactionObj);
 
-                    if (diff >= 1000) {
+                    if (diff > 1000) {
                         String result = "";
                         int i = 0;
                         while(!meowsPQ.isEmpty() && i < 100){
