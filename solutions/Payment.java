@@ -91,6 +91,7 @@ class Payment implements Comparable<Payment>{
                             i++;
                         }
                         System.out.println(result);
+                        diff = 0L;
                         Fepoch = 0L;
                     }
 
