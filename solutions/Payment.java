@@ -60,12 +60,10 @@ public class Payment implements Comparable<Payment>{
                             Fepoch -= 1000L;
                         }
                     }
-                    System.out.println("Fepoch : "+ Fepoch);
 
                     Tepoch = epoch;
                     diff = Tepoch - Fepoch;
                     time = elapsed - (1000L - diff);
-                    System.out.println("A :"+time);
 
                     if (tier.equalsIgnoreCase("PLATINUM")) {
                         time = time - 3000L;
@@ -83,7 +81,6 @@ public class Payment implements Comparable<Payment>{
                         time = time - 0L;
                         rank = 0;
                     }
-                    System.out.println("B :"+time);
 
                     Payment transactionObj = new Payment(time, txnId, rank);
                     meowsPQ.add(transactionObj);
