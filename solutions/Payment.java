@@ -94,6 +94,9 @@ public class Payment implements Comparable<Payment>{
                         }
                         System.out.println(result);
                         Fepoch = (long) (Math.round(Tepoch/1000d)*1000d);
+                        if (Tepoch<Fepoch){
+                            Fepoch -= 1000L;
+                        }
                         elapsed += 1000L;
                     }
                 }
