@@ -17,7 +17,7 @@ class Payment {
 
         Scanner in = new Scanner(System.in);
 
-        while (in.hasNextLine()) {
+        while (in.hasNext()) {
             try {
 
                 String data = in.nextLine();
@@ -70,7 +70,7 @@ class Payment {
 
                     tran.add(new Time(timespent,rank,arr[1]));
                 }
-            } catch(InputMismatchException e){
+            } catch(Exception e){
                 return ;
             }
         }
