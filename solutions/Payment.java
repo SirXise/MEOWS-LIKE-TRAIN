@@ -17,7 +17,7 @@ class Payment {
 
         Scanner in = new Scanner(System.in);
 
-        while (in.hasNext()) {
+        while (in.hasNextLine()) {
             try {
 
                 String data = in.nextLine();
@@ -70,8 +70,12 @@ class Payment {
                         System.out.println("");
                     }
                 }
-            } catch(Exception e){
-                return ;
+            } catch (InputMismatchException e) {
+                return;
+            } catch (NumberFormatException e) {
+                return;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return;
             }
         }
     }
