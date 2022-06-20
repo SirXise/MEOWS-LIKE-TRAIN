@@ -1,11 +1,35 @@
-import java.io.IOException;
 import java.util.*;
 
-class Payment {
+public class Payment implements Comparable<Payment>{
+
+    private Long timespent;
+    private Integer rank;
+    private String txn_id;
+
+    public Payment(Long timespent, int rank, String txn_id) {
+        this.timespent = timespent;
+        this.rank = rank;
+        this.txn_id = txn_id;
+    }
+
+
+    @Override
+    public String toString() {
+        return (this.txn_id);
+    }
+
+    static PriorityQueue<Payment> tran = new PriorityQueue<Payment>();
+
+
+    @Override
+    public int compareTo(Payment o) {
+        if(this.timespent.compareTo(o.timespent)==0) {
+            return this.rank.compareTo(o.rank);
+        }
+        return this.timespent.compareTo(o.timespent);
+    }
 
     public static void main(String[] args) {
-
-        PriorityQueue<Time> tran = new PriorityQueue<Time>();
 
         int a = 1;
         Long start = Long.valueOf(0);
@@ -67,7 +91,7 @@ class Payment {
                         timespent = totalelapsed  -  temptime - Long.valueOf(3000);
                         rank = 3;
                     }
-                    tran.add(new Time(timespent,rank,arr[1]));
+                    tran.add(new Payment(timespent,rank,arr[1]));
                     if (elapsed >= 1000) {
                         condition = true;
                         totalelapsed += Long.valueOf(1000);
@@ -85,34 +109,4 @@ class Payment {
             }
         }
     }
-}
-
-class Time implements Comparable<Time>{
-    private Long timespent;
-    private Integer rank;
-    private String txn_id;
-
-    public Time(Long timespent, int rank, String txn_id) {
-        this.timespent = timespent;
-        this.rank = rank;
-        this.txn_id = txn_id;
-    }
-
-
-    @Override
-    public String toString() {
-        return (this.txn_id);
-    }
-
-    private static Stack<Long> stack = new Stack<>();
-
-
-    @Override
-    public int compareTo(Time o) {
-        if(this.timespent.compareTo(o.timespent)==0) {
-            return this.rank.compareTo(o.rank);
-        }
-        return this.timespent.compareTo(o.timespent);
-    }
-
 }
