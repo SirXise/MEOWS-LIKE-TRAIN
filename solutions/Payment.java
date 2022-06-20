@@ -1,95 +1,143 @@
 import java.util.*;
 
-class Payment implements Comparable<Payment>{
 
-    private Long timespent;
-    private Integer rank;
-    private String txn_id;
+public class Payment implements Comparable<Payment>{
 
-    public Payment(Long timespent, int rank, String txn_id) {
-        this.timespent = timespent;
-        this.rank = rank;
-        this.txn_id = txn_id;
+    // variable block
+    private Long oldEpoch;
+    private Long newEpoch;
+    private Long newEpochHolder;
+    private String txnId;
+    private String tier;
+
+    final String PLATINUM = "PLATINUM";
+    final String GOLD = "GOLD";
+    final String SILVER = "SILVER";
+
+    static PriorityQueue<Payment> meowsPQ = new PriorityQueue<>();
+    private static Stack<Long> stack = new Stack<>();
+    // end of variale block
+
+    public Payment(Long oldEpoch, String txnId, String tier) {
+        if (tier.equalsIgnoreCase(PLATINUM)) {
+            this.newEpoch = oldEpoch - 3000;
+        }
+        else if (tier.equalsIgnoreCase(GOLD)) {
+            this.newEpoch = oldEpoch - 2000;
+        }
+        else if (tier.equalsIgnoreCase(SILVER)) {
+            this.newEpoch = oldEpoch - 1000;
+        }
+        else {
+            this.newEpoch = oldEpoch - 0;
+        }
+
+        newEpochHolder = this.newEpoch;
+
+        if (!stack.isEmpty()) {
+            if (stack.contains(newEpochHolder)) {
+                newEpochHolder += 1L;
+            }
+        }
+        if (stack.size() == 1800) {
+            stack.clear();
+        }
+
+        this.newEpoch = newEpochHolder;
+        stack.push(this.newEpoch);
+
+        this.oldEpoch = oldEpoch;
+        this.txnId = txnId;
+        this.tier = tier;
     }
 
+    public Long getOldEpoch() {return oldEpoch;}
+
+    public Long getNewEpoch() {return newEpoch;}
+
+    public String getTxnId() {return txnId;}
+
+    public String getTier() {return tier;}
+
+    @Override
+    public int compareTo(Payment otherTransaction) {
+        return this.getNewEpoch().compareTo(otherTransaction.newEpoch);
+    }
 
     @Override
     public String toString() {
-        return (this.txn_id);
+        return this.getTxnId();
     }
 
-    static PriorityQueue<Payment> tran = new PriorityQueue<>();
+    public static String toStr(PriorityQueue<Payment> q) {
+        if (stack.size() == 150) {
 
-
-    @Override
-    public int compareTo(Payment o) {
-        if(this.timespent.compareTo(o.timespent)==0) {
-            return this.rank.compareTo(o.rank);
         }
-        return this.timespent.compareTo(o.timespent);
+        String result = "";
+        int i = 0;
+        while(!q.isEmpty() && i < 100){
+            result += q.poll() + " ";
+            i++;
+        }
+        return result.trim();
     }
 
     public static void main(String[] args) {
+        // variables block
+        final String EXIT = "EXIT";
+        final String REBOOT = "REBOOT";
 
-        Long start = 0L;
-        Long totalelapsed = 0L;
-        Long timespent = 0L;
-        int rank = 0;
-        boolean condition = true;
+        Long epoch;
+        String txnId, tier;
 
-        Scanner in = new Scanner(System.in);
+        int diff = 0;
+        Long lastAddedEpoch = 0L;
+        boolean pass = false;
+        // end of variale block
 
-        while (in.hasNextLine()) {
+        Scanner sc = new Scanner(System.in);
+
+        while (sc.hasNextLine()) {
             try {
+                String in = sc.nextLine();
+                in = in.trim();
 
-                String data = in.nextLine();
-                data = data.trim();
-
-                if (data.equalsIgnoreCase("EXIT")) {
+                if (in.equalsIgnoreCase(EXIT)) {
                     break;
-                } else if (data.equalsIgnoreCase("REBOOT")) {
-                    tran.clear();
-                } else{
-                    String[] arr = data.split("\\s",3);
+                } else if (in.equalsIgnoreCase(REBOOT)) {
+                    meowsPQ.clear();
+                } else {
+                    String [] transaction = in.split("\\s+", 3);
+                    epoch = Long.valueOf(transaction[0]);
+                    txnId = transaction[1];
+                    tier = transaction[2];
 
-                    //for start of each 1000 milis
-                    while (condition) {
-                        start = Long.valueOf(arr[0]);
-                        double tempstart = Math.round(start / 1000d) * 1000d;
-                        start = (long) tempstart;   //to round off the long value
-                        condition = false;
+                    if (!meowsPQ.isEmpty()) {
+                        lastAddedEpoch /= 1000;
+
+                        Long epochTemp = epoch;
+                        epochTemp /= 1000;
+
+                        diff = epochTemp.intValue() - lastAddedEpoch.intValue();
+                        lastAddedEpoch = epoch;
+
+                    } else {
+                        lastAddedEpoch = epoch;
                     }
 
-                    Long timenow = Long.valueOf(arr[0]);
-                    Long elapsed = timenow - start;
+                    Payment transactionObj = new Payment(epoch, txnId, tier);
+                    meowsPQ.add(transactionObj);
 
-                    //PriorityQueue according to count time
-                    Long temptime = 1000L - (timenow - start);
-                    if(arr[2].equalsIgnoreCase("BRONZE")) {
-                        timespent = totalelapsed  -  temptime;
-                        rank = 0;
-                    }else if(arr[2].equalsIgnoreCase("SILVER")){
-                        timespent = totalelapsed  -  temptime - 1000L;
-                        rank = 1;
-                    }else if(arr[2].equalsIgnoreCase("GOLD")){
-                        timespent = totalelapsed  -  temptime - 2000L;
-                        rank = 2;
-                    }else if(arr[2].equalsIgnoreCase("PLATINUM")){
-                        timespent = totalelapsed  -  temptime - 3000L;
-                        rank = 3;
-                    }
-                    tran.add(new Payment(timespent,rank,arr[1]));
-                    if (elapsed >= 1000) {
-                        condition = true;
-                        totalelapsed += 1000L;
-                        //only 100 transaction got cleared
-                        StringBuilder result= new StringBuilder();
-                        int j = 0;
-                        while (j < 100 && !tran.isEmpty()) {
-                            result.append(tran.poll()).append(" ");
-                            j++;
+                    Long round = lastAddedEpoch % 1000;
+                    if (diff == 1 || pass) {
+                        if (round.intValue() != 0) {
+                            String ans = toStr(meowsPQ);
+                            System.out.println(ans);
+                            diff = 0;
+                            pass = false;
+                        } else {
+                            pass = true;
                         }
-                        System.out.println(result.toString().trim());
                     }
                 }
 
@@ -101,5 +149,6 @@ class Payment implements Comparable<Payment>{
                 return;
             }
         }
+
     }
 }
