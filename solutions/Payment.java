@@ -1,14 +1,15 @@
 import java.util.*;
 
-class Payment implements Comparable<Payment>{
+public class Payment implements Comparable<Payment>{
 
     private Long time;
     private String txnId;
     private String tier;
+    private Integer rank;
 
-    static PriorityQueue<Payment> tran = new PriorityQueue<>();
+    static PriorityQueue<Payment> meowsPQ = new PriorityQueue<>();
 
-    public Payment(Long time, String txnId, String tier) {
+    public Payment(Long time, String txnId, String tier,int rank) {
         if (tier.equalsIgnoreCase("PLATINUM")) {
             this.time = time - 3000;
         }
@@ -21,7 +22,7 @@ class Payment implements Comparable<Payment>{
         else {
             this.time = time - 0;
         }
-
+        this.rank = rank;
         this.txnId = txnId;
         this.tier = tier;
     }
@@ -30,12 +31,12 @@ class Payment implements Comparable<Payment>{
 
     public String getTxnId() {return txnId;}
 
-    public String getTier() {return tier;}
+    public Integer getRank() {return rank;}
 
     @Override
     public int compareTo(Payment o) {
         if(this.getTime().compareTo(o.time)==0){
-            return this.getTier().compareTo(o.tier);
+            return this.getRank().compareTo(o.rank);
         }else return this.getTime().compareTo(o.time);
     }
 
@@ -44,7 +45,7 @@ class Payment implements Comparable<Payment>{
         return this.getTxnId();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         Long epoch;
         String txnId, tier;
 
@@ -52,7 +53,8 @@ class Payment implements Comparable<Payment>{
         Long time = 0L;
         Long elapsed = 0L;
         Long diff = 0L;
-        double TFepoch = 0;
+        Long Tepoch = 0L;
+        int rank = 0;
 
         Scanner in = new Scanner(System.in);
         while (in.hasNextLine()){
@@ -62,7 +64,7 @@ class Payment implements Comparable<Payment>{
                 if (data.equalsIgnoreCase("EXIT")) {
                     break;
                 } else if (data.equalsIgnoreCase("REBOOT")) {
-                    tran.clear();
+                    meowsPQ.clear();
                 } else{
 
                     String[] input = data.split("\\s",3);
@@ -70,29 +72,41 @@ class Payment implements Comparable<Payment>{
                     txnId = input[1];
                     tier = input[2];
 
-                    if(!tran.isEmpty() && Fepoch != 0){
-                        Long Tepoch = epoch;
+                    if (tier.equalsIgnoreCase("PLATINUM")) {
+                        rank = 3;
+                    }
+                    else if (tier.equalsIgnoreCase("GOLD")) {
+                        rank = 2;
+                    }
+                    else if (tier.equalsIgnoreCase("SILVER")) {
+                        rank = 1;
+                    }
+                    else {
+                        rank = 0;
+                    }
+
+                    if(!meowsPQ.isEmpty()){
+                        Tepoch = epoch;
                         diff = Tepoch - Fepoch;
                         time = diff - elapsed;
                     }else{
-                        Fepoch = epoch;
-                        TFepoch = Math.round(Fepoch/1000d)*1000d;
-                        Fepoch = (long) TFepoch;
+                        Fepoch = (long) (Math.round(epoch/1000d)*1000d);
                     }
 
-                    Payment transactionObj = new Payment(time, txnId, tier);
-                    tran.add(transactionObj);
+                    Payment transactionObj = new Payment(time, txnId,tier, rank);
+                    meowsPQ.add(transactionObj);
 
                     if (diff >= 1000) {
                         String result = "";
                         int i = 0;
-                        while(!tran.isEmpty() && i < 100){
-                            result += tran.poll() + " ";
+                        while(!meowsPQ.isEmpty() && i < 100){
+                            result += meowsPQ.poll() + " ";
                             i++;
                         }
                         System.out.println(result);
                         diff = 0L;
-                        Fepoch = 0L;
+                        Fepoch = (long) (Math.round(Tepoch/1000d)*1000d);
+                        elapsed += 1000L;
                     }
 
                 }
