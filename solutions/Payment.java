@@ -32,11 +32,11 @@ public class Payment implements Comparable<Payment>{
         String txnId, tier;
 
         Long Fepoch = 0L;
-        Long time = 0L;
         Long elapsed = 0L;
-        Long diff = 0L;
-        Long Tepoch = 0L;
-        int rank = 0;
+        Long Tepoch;
+        int rank;
+        Long time;
+        Long diff;
 
         Scanner in = new Scanner(System.in);
         while (in.hasNextLine()){
@@ -54,18 +54,18 @@ public class Payment implements Comparable<Payment>{
                     txnId = input[1];
                     tier = input[2];
 
-                    if(!meowsPQ.isEmpty() || Fepoch!=0L){
-                        Tepoch = epoch;
-                        diff = Tepoch - Fepoch;
-                        time = elapsed - (1000L - diff);
-                        System.out.println("A :"+time);
-                    }else{
+                    if(meowsPQ.isEmpty()){
                         Fepoch = (long) (Math.round(epoch/1000d)*1000d);
-                        Tepoch = epoch;
-                        diff = Tepoch - Fepoch;
-                        time = elapsed - (1000L - diff);
-                        System.out.println("A2 :"+time);
+                        if (epoch<Fepoch){
+                            Fepoch -= 1000L;
+                        }
                     }
+                    System.out.println("Fepoch : "+ Fepoch);
+
+                    Tepoch = epoch;
+                    diff = Tepoch - Fepoch;
+                    time = elapsed - (1000L - diff);
+                    System.out.println("A :"+time);
 
                     if (tier.equalsIgnoreCase("PLATINUM")) {
                         time = time - 3000L;
@@ -96,9 +96,7 @@ public class Payment implements Comparable<Payment>{
                             i++;
                         }
                         System.out.println(result);
-                        diff = 0L;
                         Fepoch = (long) (Math.round(Tepoch/1000d)*1000d);
-                        time = 0L;
                         elapsed += 1000L;
                     }
                 }
