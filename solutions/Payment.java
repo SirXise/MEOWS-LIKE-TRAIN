@@ -7,6 +7,7 @@ public class Payment implements Comparable<Payment>{
     private String txn_id;
 
     static PriorityQueue<Payment> tran = new PriorityQueue<Payment>();
+    private static Stack<Long> temp = new Stack<>();
 
     public Payment(Long timespent, int rank, String txn_id) {
         this.timespent = timespent;
@@ -26,6 +27,19 @@ public class Payment implements Comparable<Payment>{
             return this.rank.compareTo(o.rank);
         }
         return this.timespent.compareTo(o.timespent);
+    }
+
+    public static String toStr(PriorityQueue<Payment> q) {
+        if (temp.size() == 150) {
+
+        }
+        String result = "";
+        int i = 0;
+        while(!q.isEmpty() && i < 100){
+            result += q.poll() + " ";
+            i++;
+        }
+        return result.trim();
     }
 
     public static void main(String[] args) {
@@ -88,7 +102,8 @@ public class Payment implements Comparable<Payment>{
                         elapsed = Long.valueOf(0);
                         //only 100 transaction got cleared
                         for (int j = 0; j < 100; j++) {
-                            System.out.print( tran.poll() + " ");
+                            String ans = toStr(tran);
+                            System.out.println(ans);
                         }
                         System.out.println("");
                     }
