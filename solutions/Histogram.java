@@ -1,75 +1,62 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
-package histogram;
-
-
 import java.util.Scanner;
-/**
- *
- */
-public class Histogram {
-    public static void main(String[] args) {
-        
-            Scanner input_data = new Scanner(System.in);
-            int no_of_cases = input_data.nextInt();
-          //ArrayList<Integer> ans = new ArrayList<>();
-            int c = 0;
-            while(c < no_of_cases){
-                int no_of_data = input_data.nextInt();
-                int no_of_bins = input_data.nextInt();
-                
-                int[] datapoints = new int[no_of_data];
-                
-                int b = 0;
-                
-                while(b < no_of_data){
-                    datapoints[b] = input_data.nextInt();
-                    b++;
+class Histogram{
+
+    public static void main(String[] args){
+
+        Scanner in = new Scanner(System.in);
+        int NumOfCases = in.nextInt();
+//        ArrayList<Integer> ans = new ArrayList<>();
+
+        for(int c=0; c<NumOfCases; c++) {
+            int NumOfData = in.nextInt();
+            int NumOfBins = in.nextInt();
+
+            int[] DataPoints = new int[NumOfData];
+            for (int b = 0; b < NumOfData; b++) {
+                DataPoints[b] = in.nextInt();
+            }
+
+            int max = DataPoints[0];
+            int min = DataPoints[0];
+
+            for (int i = 0; i < DataPoints.length; i++) {
+                if (DataPoints[i] > max) {
+                    max = DataPoints[i];
                 }
-                
-                int maximum = datapoints[0];
-                int minimum = datapoints[0];
-                
-                for(int i = 0; i < datapoints.length; i++){
-                    
-                    if(datapoints[i] > maximum){
-                        maximum = datapoints[i];
-                    }
-                    else if(datapoints[i] < minimum){
-                        minimum = datapoints[i]; 
-                    }
+                if (DataPoints[i] < min) {
+                    min = DataPoints[i];
                 }
-                
-                int cutoffs_value = (maximum - minimum)/no_of_bins;
-                int sum = 0;
-                int[] interval = new int[no_of_bins + 1];
-                int[] count = new int[no_of_bins];
-                
-                for(int j = 0; j < interval.length; j++){
-                    if(j ==0){
-                        System.out.println(minimum + "");
-                        sum += minimum;
-                        interval[j] = minimum;
-                        //ans.add(minimum);
-                    }
-                    else{
-                        System.out.println(sum + "");
-                        interval[j] = sum;
-                        //ans.add(sum);
-                    }
-                    sum += cutoffs_value;
+            }
+
+            int CutoffsValue = (max - min) / NumOfBins;
+            int sum = 0;
+            int[] interval = new int[NumOfBins + 1];
+            int[] count = new int[NumOfBins];
+
+            for (int i = 0; i < interval.length; i++) {
+                if (i == 0) {
+                    System.out.print(min + " ");
+                    sum += min;
+                    interval[i] = min;
+//                    ans.add(min);
+                } else {
+                    System.out.print(sum + " ");
+                    interval[i] = sum;
+//                    ans.add(sum);
                 }
-                //ans.add(00)
-                System.out.println();
-                for (int k = 0; k < datapoints.length; k++) {
-                for (int l = 0; l < interval.length - 1; l++) {
-                    if (datapoints[k] >= interval[l] && datapoints[k] < interval[l + 1]) {
-                        count[l]++;
+                sum += CutoffsValue;
+            }
+//            ans.add(00);
+            System.out.println();
+
+
+            for (int i = 0; i < DataPoints.length; i++) {
+                for (int j = 0; j < interval.length - 1; j++) {
+                    if (DataPoints[i] >= interval[j] && DataPoints[i] < interval[j + 1]) {
+                        count[j]++;
                     }
                 }
-                if (datapoints[k] == interval[interval.length - 1]) {
+                if (DataPoints[i] == interval[interval.length - 1]) {
                     count[interval.length - 2]++;
                 }
             }
@@ -78,11 +65,10 @@ public class Histogram {
 //            }
 //            ans.add(00);
 
-            for (int m = 0; m < count.length; m++) {
-                System.out.print(count[m] + " ");
+            for (int i = 0; i < count.length; i++) {
+                System.out.print(count[i] + " ");
             }
             System.out.println();
-            c++;
         }
 
 //        while(!ans.isEmpty()){
@@ -94,6 +80,5 @@ public class Histogram {
 //                System.out.println();
 //            }
 //        }
-            }
-
+    }
 }
