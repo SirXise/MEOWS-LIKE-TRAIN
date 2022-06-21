@@ -16,7 +16,6 @@ public class Histogram {
                 input_data.nextLine();
                 
                 int[] datapoints = new int[no_of_data];
-                input_data.nextLine();
                 
                 int b = 0;
                 
@@ -24,6 +23,7 @@ public class Histogram {
                     datapoints[b] = input_data.nextInt();
                     b++;
                 }
+                input_data.nextLine();
                 
                 int maximum = datapoints[0];
                 int minimum = datapoints[0];
