@@ -5,10 +5,7 @@
 package histogram;
 
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.*;
-import java.lang.*;
+import java.util.Scanner;
 /**
  *
  */
