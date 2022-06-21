@@ -89,7 +89,7 @@ public class Payment implements Comparable<Payment>{
                         String result = "";
                         int i = 0;
                         while(!tran.isEmpty() && i < 100){
-                            result += meowsPQ.poll() + " ";
+                            result += tran.poll() + " ";
                             i++;
                         }
                         System.out.println(result);
