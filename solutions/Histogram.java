@@ -7,13 +7,16 @@ public class Histogram {
         
             Scanner input_data = new Scanner(System.in);
             int no_of_cases = input_data.nextInt();
-          //ArrayList<Integer> ans = new ArrayList<>();
+            input_data.nextLine;
+        
             int c = 0;
             while(c < no_of_cases){
                 int no_of_data = input_data.nextInt();
                 int no_of_bins = input_data.nextInt();
+                input_data.nextLine;
                 
                 int[] datapoints = new int[no_of_data];
+                input_data.nextLine;
                 
                 int b = 0;
                 
@@ -65,11 +68,7 @@ public class Histogram {
                 if (datapoints[k] == interval[interval.length - 1]) {
                     count[interval.length - 2]++;
                 }
-            }
-//            for (int i = 0; i < count.length; i++){
-//                ans.add(count[i]);
-//            }
-//            ans.add(00);
+            }         ans.add(00);
 
             for (int m = 0; m < count.length; m++) {
                 System.out.print(count[m] + " ");
@@ -78,15 +77,3 @@ public class Histogram {
             c++;
         }
 
-//        while(!ans.isEmpty()){
-//            int num = ans.remove(0);
-//            if(num != 0){
-//                System.out.print(num + " ");
-//            }
-//            if(num == 0){
-//                System.out.println();
-//            }
-//        }
-            }
-
-}
