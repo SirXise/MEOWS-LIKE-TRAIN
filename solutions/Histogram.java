@@ -7,16 +7,16 @@ public class Histogram {
         
             Scanner input_data = new Scanner(System.in);
             int no_of_cases = input_data.nextInt();
-            input_data.nextLine;
+            input_data.nextLine();
         
             int c = 0;
             while(c < no_of_cases){
                 int no_of_data = input_data.nextInt();
                 int no_of_bins = input_data.nextInt();
-                input_data.nextLine;
+                input_data.nextLine();
                 
                 int[] datapoints = new int[no_of_data];
-                input_data.nextLine;
+                input_data.nextLine();
                 
                 int b = 0;
                 
