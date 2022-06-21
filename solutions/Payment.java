@@ -1,14 +1,16 @@
 import java.util.*;
 
-public class Payment implements Comparable<Payment>{
+public class Payment implements Comparable<Payment> {
 
     private Long time;
     private String txnId;
     private Integer rank;
 
+    //initialising Priority Queue
     static PriorityQueue<Payment> tran = new PriorityQueue<>();
 
-    public Payment(Long time, String txnId,int rank) {
+    //getting variables for comparison
+    public Payment(Long time, String txnId, int rank) {
 
         this.rank = rank;
         this.txnId = txnId;
@@ -16,18 +18,22 @@ public class Payment implements Comparable<Payment>{
     }
 
     @Override
+    //compare func
     public int compareTo(Payment o) {
-        if(this.time.compareTo(o.time)==0){
+        if (this.time.compareTo(o.time) == 0) {
             return this.rank.compareTo(o.rank);
-        }else return this.time.compareTo(o.time);
+        } else return this.time.compareTo(o.time);
     }
 
     @Override
+    //to return string
     public String toString() {
         return this.txnId;
     }
 
-    public static void main(String[] args){
+    //Driver
+    public static void main(String[] args) {
+        //initialising some variables
         Long epoch;
         String txnId, tier;
 
@@ -38,76 +44,94 @@ public class Payment implements Comparable<Payment>{
         Long time;
         Long diff;
 
+        //scanning user input
         Scanner in = new Scanner(System.in);
-        while (in.hasNextLine()){
-            try{
+        while (in.hasNextLine()) {
+            try {
                 String data = in.nextLine();
 
+                //for EXIT
                 if (data.equalsIgnoreCase("EXIT")) {
                     break;
-                } else if (data.equalsIgnoreCase("REBOOT")) {
+                }
+                //for REBOOT
+                else if (data.equalsIgnoreCase("REBOOT")) {
                     tran.clear();
-                } else{
+                }
+                //for input
+                else {
 
-                    String[] input = data.split("\\s",3);
+                    //saparating input by white space with limit of 3 into array
+                    String[] input = data.split("\\s", 3);
+                    //assigning each element of array into their variable
                     epoch = Long.valueOf(input[0]);
                     txnId = input[1];
                     tier = input[2];
 
-                    if(tran.isEmpty()){
-                        Fepoch = (long) (Math.round(epoch/1000d)*1000d);
-                        if (epoch<Fepoch){
+                    //to get the Fepoch of the first transaction
+                    //since Fepoch was initialised as 0L
+                    //if the first transaction doesn't enter this if statement
+                    //the diff will always be greater than 1000
+                    if (tran.isEmpty()) {
+                        //if the Fepoch was rounded up
+                        Fepoch = (long) (Math.round(epoch / 1000d) * 1000d);
+                        if (epoch < Fepoch) {
                             Fepoch -= 1000L;
                         }
                     }
-
+                    //assign Tepoch and calculate diff and time
                     Tepoch = epoch;
                     diff = Tepoch - Fepoch;
+                    //elapsed is the time difference from first iteration(before first output) of program
+                    //to the current(next output) iteration
                     time = elapsed - (1000L - diff);
 
+                    //calculating their time based on tier
+                    //assigning rank
                     if (tier.equalsIgnoreCase("PLATINUM")) {
                         time = time - 3000L;
                         rank = 3;
-                    }
-                    else if (tier.equalsIgnoreCase("GOLD")) {
+                    } else if (tier.equalsIgnoreCase("GOLD")) {
                         time = time - 2000L;
                         rank = 2;
-                    }
-                    else if (tier.equalsIgnoreCase("SILVER")) {
+                    } else if (tier.equalsIgnoreCase("SILVER")) {
                         time = time - 1000L;
                         rank = 1;
-                    }
-                    else {
+                    } else {
                         time = time - 0L;
                         rank = 0;
                     }
 
+                    //adding the input into tran Priority Queue
                     Payment transactionObj = new Payment(time, txnId, rank);
                     tran.add(transactionObj);
 
+                    //to see if it has been 1001 millisecond from the previous output
+                    // or start of the program
                     if (diff > 1000) {
                         String result = "";
                         int i = 0;
-                        while(!tran.isEmpty() && i < 100){
+                        //joining the 100 transaction into 1 string
+                        while (!tran.isEmpty() && i < 100) {
                             result += tran.poll() + " ";
                             i++;
                         }
+                        //display the ouput
                         System.out.println(result);
-                        Fepoch = (long) (Math.round(Tepoch/1000d)*1000d);
-                        if (Tepoch<Fepoch){
+                        //changing the Fepoch for the next iteration
+                        Fepoch = (long) (Math.round(Tepoch / 1000d) * 1000d);
+                        //if the Fepoch was rounded up
+                        if (Tepoch < Fepoch) {
                             Fepoch -= 1000L;
                         }
+                        //elapsed increment since 1000 millisecond have pass
                         elapsed += 1000L;
                     }
                 }
             } catch (InputMismatchException e) {
                 return;
-            } catch (NumberFormatException e) {
-                return;
-            } catch (ArrayIndexOutOfBoundsException e) {
-                return;
             }
-        }
 
+        }
     }
 }
