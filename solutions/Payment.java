@@ -6,7 +6,7 @@ public class Payment implements Comparable<Payment>{
     private String txnId;
     private Integer rank;
 
-    static PriorityQueue<Payment> meowsPQ = new PriorityQueue<>();
+    static PriorityQueue<Payment> tran = new PriorityQueue<>();
 
     public Payment(Long time, String txnId,int rank) {
 
@@ -46,7 +46,7 @@ public class Payment implements Comparable<Payment>{
                 if (data.equalsIgnoreCase("EXIT")) {
                     break;
                 } else if (data.equalsIgnoreCase("REBOOT")) {
-                    meowsPQ.clear();
+                    tran.clear();
                 } else{
 
                     String[] input = data.split("\\s",3);
@@ -54,7 +54,7 @@ public class Payment implements Comparable<Payment>{
                     txnId = input[1];
                     tier = input[2];
 
-                    if(meowsPQ.isEmpty()){
+                    if(tran.isEmpty()){
                         Fepoch = (long) (Math.round(epoch/1000d)*1000d);
                         if (epoch<Fepoch){
                             Fepoch -= 1000L;
@@ -83,12 +83,12 @@ public class Payment implements Comparable<Payment>{
                     }
 
                     Payment transactionObj = new Payment(time, txnId, rank);
-                    meowsPQ.add(transactionObj);
+                    tran.add(transactionObj);
 
                     if (diff > 1000) {
                         String result = "";
                         int i = 0;
-                        while(!meowsPQ.isEmpty() && i < 100){
+                        while(!tran.isEmpty() && i < 100){
                             result += meowsPQ.poll() + " ";
                             i++;
                         }
