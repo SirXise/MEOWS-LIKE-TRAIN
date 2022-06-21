@@ -3,17 +3,15 @@ import java.util.Scanner;
  *
  */
 public class Histogram {
-    public static void main(String[] args) {
+    public static void main(String[] args){
         
             Scanner input_data = new Scanner(System.in);
             int no_of_cases = input_data.nextInt();
-            input_data.nextLine();
           //ArrayList<Integer> ans = new ArrayList<>();
             int c = 0;
             while(c < no_of_cases){
                 int no_of_data = input_data.nextInt();
                 int no_of_bins = input_data.nextInt();
-                input_data.nextLine();
                 
                 int[] datapoints = new int[no_of_data];
                 
@@ -44,13 +42,13 @@ public class Histogram {
                 
                 for(int j = 0; j < interval.length; j++){
                     if(j ==0){
-                        System.out.println(minimum + "");
+                        System.out.print(minimum + " ");
                         sum += minimum;
                         interval[j] = minimum;
                         //ans.add(minimum);
                     }
                     else{
-                        System.out.println(sum + "");
+                        System.out.print(sum + " ");
                         interval[j] = sum;
                         //ans.add(sum);
                     }
