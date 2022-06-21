@@ -4,11 +4,11 @@ import java.util.Scanner;
  */
 public class Histogram {
     public static void main(String[] args){
-        
+
             Scanner input_data = new Scanner(System.in);
             int no_of_cases = input_data.nextInt();
             input_data.nextLine();
-        
+            
             int c = 0;
             while(c < no_of_cases){
                 int no_of_data = input_data.nextInt();
@@ -68,7 +68,7 @@ public class Histogram {
                 if (datapoints[k] == interval[interval.length - 1]) {
                     count[interval.length - 2]++;
                 }
-            }         ans.add(00);
+            }
 
             for (int m = 0; m < count.length; m++) {
                 System.out.print(count[m] + " ");
@@ -76,4 +76,7 @@ public class Histogram {
             System.out.println();
             c++;
         }
+            
+            }
 
+}
