@@ -14,13 +14,14 @@ public class Histogram {
             int no_of_bins = input_data.nextInt();
 
             Integer[] datapoints = new Integer[no_of_data];
-            int b = 0, minimum=Integer.MAX_VALUE, maximum=Integer.MIN_VALUE;;
+            int b = 0;
             while (b < no_of_data) {
                 datapoints[b] = input_data.nextInt();
-                if (datapoints[b]>maximum) { maximum = datapoints[b]; }
-                if (datapoints[b]<minimum) { minimum = datapoints[b]; }
                 b++;
             }
+
+            int maximum = Collections.max(Arrays.asList(datapoints));
+            int minimum = Collections.min(Arrays.asList(datapoints));
 
             int cutoffs_value = (maximum - minimum) / no_of_bins;
             int[] interval = new int[no_of_bins + 1];
