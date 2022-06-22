@@ -52,7 +52,6 @@ public class Histogram {
 
             System.out.println(Arrays.toString(interval).replace("[", "").replace("]", "").replace(",", ""));
             System.out.println(Arrays.toString(count).replace("[", "").replace("]", "").replace(",", ""));
-            c++;
         }
     }
 
