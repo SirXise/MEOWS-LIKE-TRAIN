@@ -1,16 +1,14 @@
-import java.util.*;
-/**
- *
- */
 public class Histogram {
     public static void main(String[] args) {
 
         Scanner input_data = new Scanner(System.in);
         int no_of_cases = input_data.nextInt();
 
-        for (int c = 0;c < no_of_cases;c++) {
+        int c = 0;
+        while (c < no_of_cases) {
             int no_of_data = input_data.nextInt();
             int no_of_bins = input_data.nextInt();
+            input_data.nextLine();
 
             int[] datapoints = new int[no_of_data];
             int b = 0;
@@ -52,6 +50,7 @@ public class Histogram {
 
             System.out.println(Arrays.toString(interval).replace("[", "").replace("]", "").replace(",", ""));
             System.out.println(Arrays.toString(count).replace("[", "").replace("]", "").replace(",", ""));
+            c++;
         }
     }
 
