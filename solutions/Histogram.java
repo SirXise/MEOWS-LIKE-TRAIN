@@ -25,25 +25,38 @@ public class Histogram {
             int[] interval = new int[nobins + 1];
             int[] count = new int[nobins];
 
-            String line = "";
             for (int i = 0; i < interval.length; i++) {
                 interval[i] = min;
                 min += cutoffs;
             }
 
+            Loop:
+            for (int data: datapoints) {
+                for (int k = 0; k < interval.length - 2; k++) {
+                    if(data < interval[k + 1]){
+                        count[k]++;
+                        continue Loop;
+                    }
+                }
+                if(data <= interval[interval.length - 1]){
+                    count[nobins - 1]++;
+                }
+            }
+
+            String line = "";
             for(int cutoff:interval){
                 line += cutoff + " ";
             }
             System.out.println(line);
 
-            count[count.length-1] = 1;
-            for (int data : datapoints) {
-                for (int k = 0; k < interval.length - 1; k++) {
-                    if (data >= interval[k] && data < interval[k + 1]) {
-                        count[k]++;
-                    }
-                }
-            }
+            //count[count.length-1] = 1;
+            //for (int data : datapoints) {
+            //    for (int k = 0; k < interval.length - 1; k++) {
+            //        if (data >= interval[k] && data < interval[k + 1]) {
+            //            count[k]++;
+            //        }
+            //    }
+            //}
 
             String line1="";
             for (int m = 0; m < count.length; m++) {
