@@ -69,7 +69,6 @@ public class Histogram {
                 line1 += count[m] + " ";
             }
             System.out.println(line1);
-            System.out.println();
             c++;
         }
     }
