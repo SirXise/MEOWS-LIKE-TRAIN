@@ -1,8 +1,9 @@
 import java.util.*;
-
-public class Histogram {
+/**
+ *
+ */
+class Histogram {
     public static void main(String[] args) {
-
         Scanner input_data = new Scanner(System.in);
         int no_of_cases = input_data.nextInt();
 
@@ -12,25 +13,15 @@ public class Histogram {
             int no_of_bins = input_data.nextInt();
             input_data.nextLine();
 
-            int[] datapoints = new int[no_of_data];
+            Integer[] datapoints = new Integer[no_of_data];
             int b = 0;
             while (b < no_of_data) {
                 datapoints[b] = input_data.nextInt();
                 b++;
             }
 
-            int maximum = 0;
-            for(int i=0;i< datapoints.length;i++){
-                if(datapoints[i]>maximum){
-                    maximum = datapoints[i];
-                }
-            }
-            int minimum = datapoints[0];
-            for(int i=0;i< datapoints.length; i++){
-                if(datapoints[i]<minimum){
-                    minimum = datapoints[i];
-                }
-            }
+            int maximum = Collections.max(Arrays.asList(datapoints));
+            int minimum = Collections.min(Arrays.asList(datapoints));
 
             int cutoffs_value = (maximum - minimum) / no_of_bins;
             int[] interval = new int[no_of_bins + 1];
