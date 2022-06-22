@@ -24,24 +24,20 @@ public class Histogram {
             int minimum = Collections.min(Arrays.asList(datapoints));
 
             int cutoffs_value = (maximum - minimum) / no_of_bins;
-            int sum = 0;
             int[] interval = new int[no_of_bins + 1];
             int[] count = new int[no_of_bins];
 
             String line = "";
-            for (int j = 0; j < interval.length; j++) {
-                if (j == 0) {
-                    sum += minimum;
-                    interval[j] = minimum;
-                    line += minimum + " ";
-                } else {
-                    interval[j] = sum;
-                    line += sum + " ";
-                }
-                sum += cutoffs_value;
+            for (int i = 0; i < interval.length; i++) {
+                interval[i] = minimum;
+                minimum += cutoffs_value;
             }
 
-            line += "\n";
+            for(int cutoff:interval){
+                line += cutoff + " ";
+            }
+
+            System.out.println(line);
 
             for (int k = 0; k < datapoints.length; k++) {
                 for (int l = 0; l < interval.length - 1; l++) {
@@ -54,10 +50,11 @@ public class Histogram {
                 }
             }
 
+            String line1="";
             for (int m = 0; m < count.length; m++) {
-                line += count[m] + " ";
+                line1 += count[m] + " ";
             }
-            System.out.println(line);
+            System.out.println(line1);
             c++;
         }
     }
