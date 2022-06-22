@@ -6,29 +6,29 @@ public class Histogram {
     public static void main(String[] args) {
 
         Scanner input_data = new Scanner(System.in);
-        int no_of_cases = input_data.nextInt();
+        int nocases = input_data.nextInt();
 
         int c = 0;
-        while (c < no_of_cases) {
-            int no_of_data = input_data.nextInt();
-            int no_of_bins = input_data.nextInt();
+        while (c < nocases) {
+            int nodata = input_data.nextInt();
+            int nobins = input_data.nextInt();
 
-            Integer[] datapoints = new Integer[no_of_data];
-            for(int b = 0;b<no_of_data;b++) {
+            Integer[] datapoints = new Integer[nodata];
+            for(int b = 0;b<nodata;b++) {
                 datapoints[b] = input_data.nextInt();
             }
 
-            int maximum = Collections.max(Arrays.asList(datapoints));
-            int minimum = Collections.min(Arrays.asList(datapoints));
+            int max = Collections.max(Arrays.asList(datapoints));
+            int min = Collections.min(Arrays.asList(datapoints));
 
-            int cutoffs_value = (maximum - minimum) / no_of_bins;
-            int[] interval = new int[no_of_bins + 1];
-            int[] count = new int[no_of_bins];
+            int cutoffs = (max - min) / nobins;
+            int[] interval = new int[nobins + 1];
+            int[] count = new int[nobins];
 
             String line = "";
             for (int i = 0; i < interval.length; i++) {
-                interval[i] = minimum;
-                minimum += cutoffs_value;
+                interval[i] = min;
+                min += cutoffs;
             }
 
             for(int cutoff:interval){
