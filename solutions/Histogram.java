@@ -52,7 +52,8 @@ public class Histogram {
                 }
                 sum += cutoffs_value;
             }
-            System.out.println(line);
+            
+            line += line + "\n";
 
             for (int k = 0; k < datapoints.length; k++) {
                 for (int l = 0; l < interval.length - 1; l++) {
@@ -65,11 +66,10 @@ public class Histogram {
                 }
             }
 
-            String line1 = "";
             for (int m = 0; m < count.length; m++) {
-                line1 += count[m] + " ";
+                line += count[m] + " ";
             }
-            System.out.println(line1);
+            System.out.println(line);
             c++;
         }
     }
