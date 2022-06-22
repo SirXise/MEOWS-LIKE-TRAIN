@@ -40,17 +40,8 @@ public class Histogram {
                 }
             }
 
-            String line = "";
-            for(int cutoff:interval){
-                line += cutoff + " ";
-            }
-            System.out.println(line);
-
-            String line1="";
-            for (int m = 0; m < count.length; m++) {
-                line1 += count[m] + " ";
-            }
-            System.out.println(line1);
+            System.out.println(Arrays.toString(interval).replace("[", "").replace("]", "").replace(",", ""));
+            System.out.println(Arrays.toString(count).replace("[", "").replace("]", "").replace(",", ""));
             c++;
         }
     }
