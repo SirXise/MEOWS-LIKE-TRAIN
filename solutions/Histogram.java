@@ -1,4 +1,6 @@
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Scanner;
 /**
  *
  */
@@ -14,10 +16,8 @@ public class Histogram {
             int no_of_bins = input_data.nextInt();
 
             Integer[] datapoints = new Integer[no_of_data];
-            int b = 0;
-            while (b < no_of_data) {
+            for(int b = 0;b<no_of_data;b++) {
                 datapoints[b] = input_data.nextInt();
-                b++;
             }
 
             int maximum = Collections.max(Arrays.asList(datapoints));
@@ -36,7 +36,6 @@ public class Histogram {
             for(int cutoff:interval){
                 line += cutoff + " ";
             }
-
             System.out.println(line);
 
             count[count.length-1] = 1;
@@ -47,7 +46,7 @@ public class Histogram {
                     }
                 }
             }
-            
+
             String line1="";
             for (int m = 0; m < count.length; m++) {
                 line1 += count[m] + " ";
