@@ -27,17 +27,21 @@ public class Histogram {
             int[] interval = new int[no_of_bins + 1];
             int[] count = new int[no_of_bins];
 
-            for (int i = 0; i < interval.length; i++) {
+            int i=0;
+            while (i < interval.length) {
                 interval[i] = minimum;
                 minimum += cutoffs_value;
+                i++;
             };
 
             count[count.length-1] = 1;
             for (int data : datapoints) {
-                for (int k = 0; k < interval.length - 1; k++) {
+                int k =0;
+                while (k < interval.length - 1) {
                     if (data >= interval[k] && data < interval[k + 1]) {
                         count[k]++;
                     }
+                    k++;
                 }
             }
 
