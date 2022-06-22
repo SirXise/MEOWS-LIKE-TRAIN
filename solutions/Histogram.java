@@ -31,17 +31,30 @@ public class Histogram {
                 min += cutoffs;
             }
 
-            count[count.length-1] = 1;
+            Loop:
             for (int data : datapoints) {
-                for (int k = 0; k < interval.length - 1; k++) {
-                    if (data >= interval[k] && data < interval[k + 1]) {
+                for (int k = 0; k < interval.length - 2; k++) {
+                    if (data < interval[k + 1]) {
                         count[k]++;
+                        continue Loop;
                     }
                 }
+                count[nobins-1]++;
             }
 
-            System.out.println(Arrays.toString(interval).replace("[", "").replace("]", "").replace(",", ""));
-            System.out.println(Arrays.toString(count).replace("[", "").replace("]", "").replace(",", ""));
+            String line="";
+            for (int cutoff: interval) {
+                line += cutoff + " ";
+            }
+            System.out.println(line);
+
+            String line1="";
+            for (int nocount: count) {
+
+                line1 += nocount + " ";
+            }
+            System.out.println(line1);
+
             c++;
         }
     }
