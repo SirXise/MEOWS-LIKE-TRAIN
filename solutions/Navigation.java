@@ -16,15 +16,14 @@ class Navigation {
                 int size = NoCon*2;
                 Graph<String> graph = new Graph<String>(size);
                 ArrayList<ArrayList<Integer>> adjList = new ArrayList<>(size);
-                            
+
                 String str = "";
-                int n = 0;
-                while(n < size){
+
+                for (int j = 0; j < size; j++) {
                     adjList.add(new ArrayList<>());
-                    n++;
                 }
 
-                while(n < NoCon){
+                for (int j = 0; j < NoCon; j++) {
                     String data = in.nextLine();
                     String[] conname = data.split(" => ");
 
@@ -36,7 +35,6 @@ class Navigation {
                         int dest = graph.indexVert(conname[1]);
                         addEdge(adjList, sou, dest);
                     }
-                    n++;
                 }
 
                 int NoQue = in.nextInt();
@@ -70,16 +68,17 @@ class Navigation {
                         System.out.println("This destination is invalid");
                     }
 
-                    path = shortPath(adjList, sou, dest, size);
+                    path = shortPath(adjList, sou, dest, (NoCon + NoCon));
 
-                    if (path == null) System.out.println("There is no train from " + fromto[0] + " to " + fromto[1]);
-                    else {
+                    if (path == null) {
+                        System.out.println("There is no train from " + fromto[0] + " to " + fromto[1]);
+                    } else {
                         for (int k = path.size() - 1; k >= 0; k--) {
                             if (k == 0) {
                                 str += graph.getAllVertexObjects().get(path.get(k));
                                 continue;
                             }
-                             str += graph.getAllVertexObjects().get(path.get(k)) + "->";
+                            str += graph.getAllVertexObjects().get(path.get(k)) + "->";
                         }
                         System.out.println(str);
                         str = "";
@@ -88,7 +87,7 @@ class Navigation {
 
                 i++;
             }catch(InputMismatchException e){
-                return;
+                return ;
             }
         }
 
