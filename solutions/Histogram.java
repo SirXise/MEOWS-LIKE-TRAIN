@@ -14,10 +14,8 @@ public class Histogram {
             int no_of_bins = input_data.nextInt();
 
             Integer[] datapoints = new Integer[no_of_data];
-            int b = 0;
-            while (b < no_of_data) {
+            for(int b = 0;b<no_of_data;b++) {
                 datapoints[b] = input_data.nextInt();
-                b++;
             }
 
             int maximum = Collections.max(Arrays.asList(datapoints));
