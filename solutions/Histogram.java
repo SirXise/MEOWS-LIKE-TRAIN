@@ -1,8 +1,6 @@
-import java.util.Scanner;
-/**
- *
- */
-class Histogram {
+import java.util.*;
+
+public class Histogram {
     public static void main(String[] args) {
 
         Scanner input_data = new Scanner(System.in);
@@ -39,8 +37,8 @@ class Histogram {
             int sum = 0;
             int[] interval = new int[no_of_bins + 1];
             int[] count = new int[no_of_bins];
-            String line = "";
 
+            String line = "";
             for (int j = 0; j < interval.length; j++) {
                 if (j == 0) {
                     sum += minimum;
@@ -52,7 +50,9 @@ class Histogram {
                 }
                 sum += cutoffs_value;
             }
-            System.out.println(line);
+            
+            line += "\n";
+
             for (int k = 0; k < datapoints.length; k++) {
                 for (int l = 0; l < interval.length - 1; l++) {
                     if (datapoints[k] >= interval[l] && datapoints[k] < interval[l + 1]) {
@@ -64,14 +64,12 @@ class Histogram {
                 }
             }
 
-            String line1 = "";
             for (int m = 0; m < count.length; m++) {
-                line1 += count[m] + " ";
+                line += count[m] + " ";
             }
-            System.out.println(line1);
+            System.out.println(line);
             c++;
         }
-
     }
 
 }
