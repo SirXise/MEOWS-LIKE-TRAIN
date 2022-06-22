@@ -1,13 +1,10 @@
 import java.util.Scanner;
-/**
- *
- */
+
 class Histogram {
     public static void main(String[] args) {
 
         Scanner input_data = new Scanner(System.in);
         int no_of_cases = input_data.nextInt();
-        input_data.nextLine();
 
         int c = 0;
         while (c < no_of_cases) {
