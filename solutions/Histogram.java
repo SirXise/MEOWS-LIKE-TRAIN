@@ -13,7 +13,7 @@ public class Histogram {
             int no_of_data = input_data.nextInt();
             int no_of_bins = input_data.nextInt();
 
-            Integer[] datapoints = new Integer[no_of_data];
+            int[] datapoints = new int[no_of_data];
             int b = 0;
             while (b < no_of_data) {
                 datapoints[b] = input_data.nextInt();
