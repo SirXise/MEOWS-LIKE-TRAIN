@@ -2,8 +2,9 @@ import java.util.*;
 /**
  *
  */
-class Histogram {
+public class Histogram {
     public static void main(String[] args) {
+
         Scanner input_data = new Scanner(System.in);
         int no_of_cases = input_data.nextInt();
 
@@ -11,13 +12,10 @@ class Histogram {
         while (c < no_of_cases) {
             int no_of_data = input_data.nextInt();
             int no_of_bins = input_data.nextInt();
-            input_data.nextLine();
 
             Integer[] datapoints = new Integer[no_of_data];
-            int b = 0;
-            while (b < no_of_data) {
+            for(int b = 0;b<no_of_data;b++) {
                 datapoints[b] = input_data.nextInt();
-                b++;
             }
 
             int maximum = Collections.max(Arrays.asList(datapoints));
@@ -27,10 +25,16 @@ class Histogram {
             int[] interval = new int[no_of_bins + 1];
             int[] count = new int[no_of_bins];
 
+            String line = "";
             for (int i = 0; i < interval.length; i++) {
                 interval[i] = minimum;
                 minimum += cutoffs_value;
-            };
+            }
+
+            for(int cutoff:interval){
+                line += cutoff + " ";
+            }
+            System.out.println(line);
 
             count[count.length-1] = 1;
             for (int data : datapoints) {
@@ -41,8 +45,11 @@ class Histogram {
                 }
             }
 
-            System.out.println(Arrays.toString(interval).replace("[", "").replace("]", "").replace(",", ""));
-            System.out.println(Arrays.toString(count).replace("[", "").replace("]", "").replace(",", ""));
+            String line1="";
+            for (int m = 0; m < count.length; m++) {
+                line1 += count[m] + " ";
+            }
+            System.out.println(line1);
             c++;
         }
     }
