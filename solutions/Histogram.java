@@ -1,4 +1,5 @@
-import java.util.*;
+import java.util.Arrays;
+import java.util.Scanner;
 /**
  *
  */
@@ -20,8 +21,18 @@ public class Histogram {
                 b++;
             }
 
-            int maximum = Arrays.stream(datapoints).max().getAsInt();
-            int minimum = Arrays.stream(datapoints).min().getAsInt();
+            int maximum = 0;
+            for(int i=0;i< datapoints.length;i++){
+                if(datapoints[i]>maximum){
+                    maximum = datapoints[i];
+                }
+            }
+            int minimum = datapoints[0];
+            for(int i=0;i< datapoints.length; i++){
+                if(datapoints[i]<minimum){
+                    minimum = datapoints[i];
+                }
+            }
 
             int cutoffs_value = (maximum - minimum) / no_of_bins;
             int[] interval = new int[no_of_bins + 1];
