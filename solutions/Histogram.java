@@ -1,66 +1,48 @@
 import java.util.*;
+import java.lang.*;
 /**
  *
  */
-public class Histogram {
+class Histogram {
     public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        int NumCases = input.nextInt();
+        input.nextLine();
+        for (int i = 0; i < NumCases; i++) {
+            int numOfDataPoints = input.nextInt();
+            int numOfBins = input.nextInt();
 
-        Scanner input_data = new Scanner(System.in);
-        int nocases = input_data.nextInt();
-
-        int c = 0;
-        while (c < nocases) {
-            int nodata = input_data.nextInt();
-            int nobins = input_data.nextInt();
-
-            Integer[] datapoints = new Integer[nodata];
-            for(int b = 0;b<nodata;b++) {
-                datapoints[b] = input_data.nextInt();
+            int[] dataPoints = new int[numOfDataPoints];
+            for (int j = 0; j < numOfDataPoints; j++) {
+                dataPoints[j] = input.nextInt();
             }
 
-            int max = Collections.max(Arrays.asList(datapoints));
-            int min = Collections.min(Arrays.asList(datapoints));
+            int max = Arrays.stream(dataPoints).max().getAsInt();
+            int min = Arrays.stream(dataPoints).min().getAsInt();
 
-            int cutoffs = (max - min) / nobins;
-            int[] interval = new int[nobins + 1];
-            int[] count = new int[nobins];
-
-            for (int i = 0; i < interval.length; i++) {
-                interval[i] = min;
-                min += cutoffs;
+            int[] cutoffs = new int[numOfBins + 1];
+            int[] binsCount = new int[numOfBins];
+            int interval = (max - min) / numOfBins;
+            for (int j = 0; j < numOfBins + 1; j++) {
+                cutoffs[j] = min + (interval * j);
             }
 
-            count[count.length-1] = 1;
-            for (int data : datapoints) {
-                for (int k = 0; k < interval.length - 1; k++) {
-                    if (data >= interval[k] && data < interval[k + 1]) {
-                        count[k]++;
+            dataPointsLoop:
+            for (int data : dataPoints) {
+                for (int k = 0; k < cutoffs.length - 2; k++) {
+                    if (data < cutoffs[k + 1]) {
+                        binsCount[k]++;
+                        continue dataPointsLoop;
                     }
+                }
+                if (data <= cutoffs[cutoffs.length - 1]) {
+                    binsCount[numOfBins - 1]++;
                 }
             }
 
-            String line = "";
-            for(int cutoff:interval){
-                line += cutoff + " ";
-            }
-            System.out.println(line);
-
-            //count[count.length-1] = 1;
-            //for (int data : datapoints) {
-            //    for (int k = 0; k < interval.length - 1; k++) {
-            //        if (data >= interval[k] && data < interval[k + 1]) {
-            //            count[k]++;
-            //        }
-            //    }
-            //}
-
-            String line1="";
-            for (int m = 0; m < count.length; m++) {
-                line1 += count[m] + " ";
-            }
-            System.out.println(line1);
-            c++;
+            System.out.println(Arrays.toString(cutoffs).replace("[", "").replace("]", "").replace(",", ""));
+            System.out.println(Arrays.toString(binsCount).replace("[", "").replace("]", "").replace(",", ""));
         }
-    }
 
+    }
 }
