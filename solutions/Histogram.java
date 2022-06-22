@@ -1,39 +1,27 @@
 import java.util.*;
-
+/**
+ *
+ */
 public class Histogram {
     public static void main(String[] args) {
 
         Scanner input_data = new Scanner(System.in);
         int no_of_cases = input_data.nextInt();
-        input_data.nextLine();
 
         int c = 0;
         while (c < no_of_cases) {
             int no_of_data = input_data.nextInt();
             int no_of_bins = input_data.nextInt();
-            input_data.nextLine();
 
-            int[] datapoints = new int[no_of_data];
-
+            Integer[] datapoints = new Integer[no_of_data];
             int b = 0;
-
             while (b < no_of_data) {
                 datapoints[b] = input_data.nextInt();
                 b++;
             }
-            input_data.nextLine();
 
-            int maximum = datapoints[0];
-            int minimum = datapoints[0];
-
-            for (int i = 0; i < datapoints.length; i++) {
-
-                if (datapoints[i] > maximum) {
-                    maximum = datapoints[i];
-                } else if (datapoints[i] < minimum) {
-                    minimum = datapoints[i];
-                }
-            }
+            int maximum = Collections.max(Arrays.asList(datapoints));
+            int minimum = Collections.min(Arrays.asList(datapoints));
 
             int cutoffs_value = (maximum - minimum) / no_of_bins;
             int sum = 0;
@@ -52,7 +40,6 @@ public class Histogram {
                 }
                 sum += cutoffs_value;
             }
-            
             System.out.println(line);
 
             for (int k = 0; k < datapoints.length; k++) {
@@ -66,9 +53,9 @@ public class Histogram {
                 }
             }
 
-            String line1="";
+            String line1 ="";
             for (int m = 0; m < count.length; m++) {
-                line1 += count[m] + " ";
+                line += count[m] + " ";
             }
             System.out.println(line1);
             c++;
