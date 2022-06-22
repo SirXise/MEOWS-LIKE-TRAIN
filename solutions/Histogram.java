@@ -30,16 +30,14 @@ public class Histogram {
                 min += cutoffs;
             }
 
-            Loop:
-            for (int data: datapoints) {
-                for (int k = 0; k < interval.length - 2; k++) {
-                    if(data < interval[k + 1]){
-                        count[k]++;
-                        continue Loop;
+            for (int k = 0; k < datapoints.length; k++) {
+                for (int l = 0; l < interval.length - 1; l++) {
+                    if (datapoints[k] >= interval[l] && datapoints[k] < interval[l + 1]) {
+                        count[l]++;
                     }
                 }
-                if(data <= interval[interval.length - 1]){
-                    count[nobins - 1]++;
+                if (datapoints[k] == interval[interval.length - 1]) {
+                    count[interval.length - 2]++;
                 }
             }
 
